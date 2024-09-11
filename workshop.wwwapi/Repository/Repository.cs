@@ -23,5 +23,24 @@ namespace workshop.wwwapi.Repository
         {
             return await _databaseContext.Appointments.Where(a => a.DoctorId==id).ToListAsync();
         }
+
+        public async Task<Patient> GetOne(int id)
+        {
+            var onePatient =  await _databaseContext.Patients.FirstOrDefaultAsync(x => x.Id==id);
+            return onePatient;
+        }
+
+        public async Task<Patient> CreatePatient(Patient patient)
+        {
+             _databaseContext.Patients.Add(patient);
+             _databaseContext.SaveChangesAsync();
+            return patient;
+        }
+
+        public async Task<Doctor> GetDoctorById(int id)
+        {
+           return await  _databaseContext.Doctors.FirstOrDefaultAsync(x =>x.Id==id);
+
+        }
     }
 }
