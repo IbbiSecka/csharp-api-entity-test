@@ -42,5 +42,10 @@ namespace workshop.wwwapi.Repository
            return await  _databaseContext.Doctors.FirstOrDefaultAsync(x =>x.Id==id);
 
         }
+
+        public async Task<IEnumerable<Doctor>> CreateDoctor(Doctor doc)
+        {
+            return await _databaseContext.AddAsync(doc);
+        }
     }
 }
