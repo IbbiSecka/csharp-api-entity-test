@@ -13,16 +13,13 @@ namespace workshop.wwwapi.Repository
         }
         public async Task<IEnumerable<Patient>> GetPatients()
         {
-            return await _databaseContext.Patients.ToListAsync();
+            return await _databaseContext.Patients.Include(x => x.Appointments).ToListAsync();
         }
-        public async Task<IEnumerable<Doctor>> GetDoctors()
+        public async Task <List<Doctor>> GetDoctors()
         {
-            return await _databaseContext.Doctors.ToListAsync();
+            return await _databaseContext.Doctors.Include(x => x.Appointments).ToListAsync();
         }
-        public async Task<IEnumerable<Appointment>> GetAppointmentsByDoctor(int id)
-        {
-            return await _databaseContext.Appointments.Where(a => a.DoctorId==id).ToListAsync();
-        }
+     
 
         public async Task<Patient> GetOne(int id)
         {
@@ -43,9 +40,39 @@ namespace workshop.wwwapi.Repository
 
         }
 
-        public async Task<IEnumerable<Doctor>> CreateDoctor(Doctor doc)
+        public async Task<Doctor> CreateDoctor(Doctor doc)
         {
-            return await _databaseContext.AddAsync(doc);
+            
+            await _databaseContext.AddAsync(doc);
+            return doc;
+        }
+
+
+
+        public async Task<List<Appointment>> GetAppointmentsByDoctor(int id)
+        {
+            return await _databaseContext.Appointments.Where(x => x.DoctorId == id).ToListAsync();
+        }
+
+        public async Task<List<Appointment>> GetAppointments()
+        {
+            return await _databaseContext.Appointments.Include(x => x.Doctor).ToListAsync();
+        }
+
+        public async Task<Appointment> GetAppointmentById(int id)
+        {
+            return await _databaseContext.Appointments.Include(x => x.Patient).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<List<Appointment>> GetAppointmentByPatientId(int id)
+        {
+            return await _databaseContext.Appointments.Where(x => x.PatientId == id).ToListAsync();
+        }
+
+        public async Task<Appointment> CreateAppointment(Appointment checkup)
+        {
+            await _databaseContext.Appointments.AddAsync(checkup);
+            return checkup;
         }
     }
 }

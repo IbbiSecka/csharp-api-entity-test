@@ -9,7 +9,7 @@ namespace workshop.wwwapi.Models
     {
 
      
-
+        public int Id { get; set; }
         [Column("booking")] 
         public DateTime Booking { get; set; }
 

@@ -17,7 +17,7 @@ namespace workshop.wwwapi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //TODO: Appointment Key etc.. Add Here
-            modelBuilder.Entity<Appointment>().HasKey(a => new { a.PatientId, a.DoctorId });
+            modelBuilder.Entity<Appointment>().HasKey(a => new { a.PatientId, a.DoctorId, a.Id });
 
             //Relationshios
             modelBuilder.Entity<Appointment>()
@@ -44,21 +44,24 @@ namespace workshop.wwwapi.Data
             modelBuilder.Entity<Appointment>().HasData(
                 new Appointment
                 {
+                    Id = 1,
                     DoctorId = 1,
                     PatientId = 1,
-                    Booking = new DateTime(2023, 10, 30, 09, 0, 0)
+                    Booking = DateTime.UtcNow.AddDays(1)
                 },
                 new Appointment
                 {
+                    Id = 2,
                     PatientId = 2,
                     DoctorId = 1,
-                    Booking = new DateTime(2024, 09, 16, 10, 0, 0)
+                    Booking = DateTime.UtcNow
                 },
                 new Appointment
                 {
+                    Id = 3,
                     PatientId = 2,
                     DoctorId = 3,
-                    Booking = new DateTime(2024, 09, 16, 10, 0, 0)
+                    Booking = DateTime.UtcNow.AddDays(-1)
                 }
                 );
 
