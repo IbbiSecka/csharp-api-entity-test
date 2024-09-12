@@ -2,8 +2,8 @@
 {
     public class AppointmentDTO
     {
-        public Patient Patient { get; set; }
+        public string PatientName { get; set; }
         public DateTime Booking { get; set; }
-        public Doctor Doctor { get; set; }
+        public string DoctorName { get; set; }
     }
 }

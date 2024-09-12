@@ -19,7 +19,7 @@ namespace workshop.wwwapi.Models
         [Column("patient_id")] 
         public int PatientId { get; set; }
 
-        public Patient Patient { get; set; }
-        public Doctor Doctor { get; set; }
+        public string PatientName { get; set; }
+        public string DoctorName { get; set; }
     }
 }
